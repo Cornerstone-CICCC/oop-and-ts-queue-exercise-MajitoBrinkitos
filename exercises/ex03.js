@@ -8,6 +8,20 @@ const Queue = require('../lib/Queue')
 
 function processReturns(queue) {
   // your code here
+  const size = queue.items.length; //size of the queue
+
+  //dequeue first person
+  for(let i = 0; i < size; i++){
+    const person = queue.dequeue(); //dequeue first person
+
+    //total fee
+    const totalFee = person.books.reduce((acc, book) => acc + (book.daysLate * 2), 0);
+
+    //remove people without any fees
+    if(totalFee > 0 ){
+      queue.enqueue(person);
+    }
+  }
 }
 
 const returns = new Queue();
