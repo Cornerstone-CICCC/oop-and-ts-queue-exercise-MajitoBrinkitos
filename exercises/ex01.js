@@ -7,7 +7,19 @@
 const Queue = require('../lib/Queue')
 
 function processApplicants(queue) {
-  // your code here
+  //Process a queue of applicants, remove those who don´t meet requirements
+  //Requirements: yearsExperience, techStack
+  const size = queue.items.length; //initial size of the queue
+
+  //Dequeue the first applicant
+  for(let i=0; i< size; i++){
+    const applicant = queue.dequeue();
+
+    //Applicant meet requirements
+    if(applicant.yearsExperience >=2 && applicant.techStack.includes('React')){
+      queue.enqueue(applicant); //Reincorporates applicant that meets all requirements
+    }
+  }
 }
 
 const applicants = new Queue()
@@ -17,7 +29,7 @@ applicants.enqueue({ name: "Joe Smith", yearsExperience: 1, techStack: ['React',
 applicants.enqueue({ name: "Jack Smith", yearsExperience: 2, techStack: ['Node', 'MongoDB', 'React'] })
 
 processApplicants(applicants)
-console.log(applicants.printQueue())
+console.log(applicants.printQueue());
 // Expected output:
 // { name: "Jane Smith", yearsExperience: 5, techStack: ['Node', 'React', 'Vue'] }
 // { name: "Jack Smith", yearsExperience: 2, techStack: ['Node', 'MongoDB', 'React'] }
